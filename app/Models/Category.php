@@ -21,4 +21,8 @@ class Category extends Model
             ->generateSlugsFrom('name')
             ->saveSlugsTo('slug');
     }
+    public function scopeCategoryActive($query)
+    {
+        $query->where('status', "active");
+    }
 }

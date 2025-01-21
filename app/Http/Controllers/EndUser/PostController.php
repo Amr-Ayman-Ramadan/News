@@ -12,7 +12,7 @@ class PostController extends Controller
 {
     public function show($slug)
     {
-        $post = Post::with(["comments"=>function ($query) {
+        $post = Post::active()->with(["comments"=>function ($query) {
             $query->latest()->limit(3);
         }])->whereSlug($slug)->firstOrFail();
         $category = $post->category;

@@ -11,11 +11,11 @@ class HomeController extends Controller
 {
         public function index()
     {
-        $posts = Post::latest()->paginate(5);
-        $mostViewPosts = Post::orderBy("num_of_views", "desc")->limit(3)->get();
-        $oldestPosts = Post::oldest()->limit(3)->get();
-        $popularPosts = Post::withCount("comments")->orderBy("comments_count", "desc")->limit(3)->get();
-        $latestPosts = Post::latest()->limit(3)->get();
+        $posts = Post::active()->latest()->paginate(5);
+        $mostViewPosts = Post::active()->orderBy("num_of_views", "desc")->limit(3)->get();
+        $oldestPosts = Post::active()->oldest()->limit(3)->get();
+        $popularPosts = Post::active()->withCount("comments")->orderBy("comments_count", "desc")->limit(3)->get();
+        $latestPosts = Post::active()->latest()->limit(3)->get();
 
         $categories = Category::with(['posts' => function ($query) {
             $query->limit(3)->with('images');

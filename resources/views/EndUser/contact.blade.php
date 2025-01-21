@@ -17,36 +17,39 @@
             <div class="row align-items-center">
                 <div class="col-md-8">
                     <div class="contact-form">
-                        <form>
+                        <form action="{{route("endUser.contact.store")}}" method="post">
+                            @csrf
                             <div class="form-row">
-                                <div class="form-group col-md-6">
-                                    <input
-                                        type="text"
-                                        class="form-control"
-                                        placeholder="Your Name"
-                                    />
+                                <div class="form-group col-md-4">
+                                    <input type="text" class="form-control" name="name" value="{{old("name")}}" placeholder="Your Name"/>
+                                    @error("name")
+                                    <div class="text-danger">{{$message}}</div>
+                                    @enderror
                                 </div>
-                                <div class="form-group col-md-6">
-                                    <input
-                                        type="email"
-                                        class="form-control"
-                                        placeholder="Your Email"
-                                    />
+                                <div class="form-group col-md-4">
+                                    <input type="email" class="form-control" name="email" value="{{old("email")}}" placeholder="Your Email"/>
+                                    @error("email")
+                                    <div class="text-danger">{{$message}}</div>
+                                    @enderror
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <input type="tel" class="form-control" name="phone" value="{{old("phone")}}" placeholder="Your Phone"/>
+                                    @error("phone")
+                                    <div class="text-danger">{{$message}}</div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="form-group">
-                                <input
-                                    type="text"
-                                    class="form-control"
-                                    placeholder="Subject"
-                                />
+                                <input type="text" class="form-control" name="title" value="{{old("title")}}" placeholder="Subject"/>
+                                @error("title")
+                                <div class="text-danger">{{$message}}</div>
+                                @enderror
                             </div>
                             <div class="form-group">
-                  <textarea
-                      class="form-control"
-                      rows="5"
-                      placeholder="Message"
-                  ></textarea>
+                          <textarea class="form-control" rows="5" name="body" placeholder="Message">{{old("body")}}</textarea>
+                                @error("body")
+                                <div class="text-danger">{{$message}}</div>
+                                @enderror
                             </div>
                             <div>
                                 <button class="btn" type="submit">Send Message</button>

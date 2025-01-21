@@ -36,6 +36,7 @@
 
     <!-- Template Stylesheet -->
     <link href="{{asset("assets/EnduserAssets/css/style.css")}}" rel="stylesheet" />
+    @stack("css")
 </head>
 <body>
 @include('sweetalert::alert')

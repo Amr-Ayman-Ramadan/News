@@ -10,10 +10,13 @@
             </div>
             <div class="col-md-6">
                 <div class="tb-menu">
-                    <a href="">About</a>
-                    <a href="">Privacy</a>
-                    <a href="">Terms</a>
-                    <a href="">Contact</a>
+                    @guest()
+                        <a href="{{route("auth.registerPage")}}">Register</a>
+                        <a href="{{route("auth.login")}}">Login</a>
+                    @endguest
+                    @auth()
+                        <a href="{{route("auth.logout")}}">Log out</a>
+                    @endauth
                 </div>
             </div>
         </div>
@@ -40,10 +43,13 @@
                 </div>
             </div>
             <div class="col-lg-3 col-md-4">
-                <div class="b-search">
-                    <input type="text" placeholder="Search" />
-                    <button><i class="fa fa-search"></i></button>
-                </div>
+                <form action="{{route("endUser.search.index")}}" method="post">
+                    @csrf
+                    <div class="b-search">
+                        <input type="text" name="search" placeholder="Search" />
+                        <button type="submit"><i class="fa fa-search"></i></button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -69,7 +75,7 @@
                 id="navbarCollapse"
             >
                 <div class="navbar-nav mr-auto">
-                    <a href="index.html" class="nav-item nav-link active">Home</a>
+                    <a href="{{route("endUser.home")}}" class="nav-item nav-link active">Home</a>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle"
                            data-toggle="dropdown">Categories</a>
@@ -83,7 +89,7 @@
                     >Single Page</a
                     >
                     <a href="dashboard.html" class="nav-item nav-link">Dashboard</a>
-                    <a href="contact.html" class="nav-item nav-link">Contact Us</a>
+                    <a href="{{route("endUser.contact.index")}}" class="nav-item nav-link">Contact Us</a>
                 </div>
                 <div class="social ml-auto">
                     <a href=""><i class="fab fa-twitter"></i></a>
