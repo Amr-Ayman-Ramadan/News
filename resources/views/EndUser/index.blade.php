@@ -11,10 +11,11 @@
                         @foreach($latestPosts as $post)
                             <div class="col-md-6">
                                 <div class="tn-img">
-                                    <img src="{{ $post->image }}"
+                                    <img src="{{ asset('storage/' . optional($post->images->first())->path) }}"
                                          alt="{{ $post->title }}"
                                          loading="lazy"
                                          style="width: 100%; height: auto;">
+
                                     <div class="tn-title">
                                         <a href="{{route("endUser.post.show",$post->slug)}}">{{ $post->title }}</a>
                                     </div>
@@ -30,9 +31,11 @@
                         @foreach($fourPosts as $post)
                             <div class="col-md-6">
                                 <div class="tn-img">
-                                    <img src="{{ $post->image }}"
+                                    <img src="{{ asset('storage/' . optional($post->images->first())->path) }}"
                                          alt="{{ $post->title }}"
-                                         loading="lazy">
+                                         loading="lazy"
+                                         style="width: 100%; height: auto;">
+
                                     <div class="tn-title">
                                         <a href="{{route("endUser.post.show",$post->slug)}}">{{ $post->title }}</a>
                                     </div>
@@ -57,9 +60,11 @@
                             @foreach($category->posts as $post)
                                 <div class="col-md-6">
                                     <div class="cn-img">
-                                        <img src="{{ $post->image }}"
+                                        <img src="{{ asset('storage/' . optional($post->images->first())->path) }}"
                                              alt="{{ $post->title }}"
-                                             loading="lazy">
+                                             loading="lazy"
+                                             style="width: 100%; height: auto;">
+
                                         <div class="cn-title">
                                             <a href="{{route("endUser.post.show",$post->slug)}}">{{ $post->title }}</a>
                                         </div>
@@ -94,7 +99,7 @@
                             @foreach($popularPosts as $popularPost)
                                 <div class="tn-news">
                                     <div class="tn-img">
-                                        <img src="{{ $popularPost->image }}"
+                                        <img src="{{ asset('storage/' . optional($popularPost->images->first())->path) }}"
                                              alt="{{ $popularPost->title }}"
                                              loading="lazy">
                                     </div>
@@ -109,7 +114,7 @@
                             @foreach($oldestPosts as $oldestPost)
                                 <div class="tn-news">
                                     <div class="tn-img">
-                                        <img src="{{ $oldestPost->image }}"
+                                        <img src="{{ asset('storage/' . optional($oldestPost->images->first())->path)}}"
                                              alt="{{ $oldestPost->title }}"
                                              loading="lazy">
                                     </div>
@@ -138,7 +143,7 @@
                             @foreach($latestPosts as $latestPost)
                                 <div class="tn-news">
                                     <div class="tn-img">
-                                        <img src="{{ $latestPost->image }}"
+                                        <img src="{{ asset('storage/' . optional($latestPost->images->first())->path) }}"
                                              alt="{{ $latestPost->title }}"
                                              loading="lazy">
                                     </div>
@@ -153,7 +158,7 @@
                             @foreach($mostViewPosts as $mostViewPost)
                                 <div class="tn-news">
                                     <div class="tn-img">
-                                        <img src="{{ $mostViewPost->image }}"
+                                        <img src="{{ asset('storage/' . optional($mostViewPost->images->first())->path) }}"
                                              alt="{{ $mostViewPost->title }}"
                                              loading="lazy">
                                     </div>
@@ -179,9 +184,12 @@
                         @foreach($posts as $post)
                             <div class="col-md-4">
                                 <div class="mn-img">
-                                    <img src="{{ $post->image }}"
+                                    <img src="{{ asset('storage/' . optional($post->images->first())->path) }}"
                                          alt="{{ $post->title }}"
-                                         loading="lazy">
+                                         loading="lazy"
+                                         style="width: 100%; height: auto;">
+
+
                                     <div class="mn-title">
                                         <a href="#">{{ $post->title }}</a>
                                     </div>

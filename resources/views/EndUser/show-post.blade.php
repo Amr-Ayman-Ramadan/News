@@ -14,7 +14,7 @@
                         </ol>
                         <div class="carousel-inner">
                             <div class="carousel-item active">
-                                <img src="{{$post->image}}" class="d-block w-50" alt="First Slide">
+                                <img src="{{asset('storage/' . optional($post->images->first())->path)}}" class="d-block w-50" alt="First Slide">
                                 <div class="carousel-caption d-none d-md-block">
                                     <h5>{{$post->title}}</h5>
                                     <p>
@@ -42,7 +42,7 @@
                         <form id="commentForm">
                             <div class="comment-input">
                                 @csrf
-                                    <input type="hidden" name="user_id" value="2">
+                                    <input type="hidden" name="user_id" value="{{auth()->user()->id}}">
                                     <input type="hidden" name="post_id" value="{{$post->id}}">
                                     <input type="text" name="comment"  placeholder="Add a comment..." id="commentBox" />
                                     <button type="submit" id="addCommentBtn">Comment</button>
@@ -372,7 +372,7 @@
                 }
             },
             error: function (xhr) {
-                if (xhr.status === 422) { 
+                if (xhr.status === 422) {
                     var errors = xhr.responseJSON.errors;
                     if (errors.comment) {
                         $("#errorMessage").text(errors.comment[0]).show();

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\EndUser\Comment\CommentRequest;
 use App\Models\Comment;
 use App\Models\Post;
+use App\Notifications\NewCommentNotifiy;
 
 
 class PostController extends Controller
@@ -16,7 +17,7 @@ class PostController extends Controller
             $query->latest()->limit(3);
         }])->whereSlug($slug)->firstOrFail();
         $category = $post->category;
-        $posts_belongs_to_category = $category->posts()->select("id","title","image","slug")->limit(5)->get();
+        $posts_belongs_to_category = $category->posts()->select("id","title","slug")->limit(5)->get();
         return view('EndUser.show-post', compact('post','posts_belongs_to_category'));
     }
     public function getAllComments($slug)
@@ -33,6 +34,10 @@ class PostController extends Controller
             "comment" => $request->comment,
             "ip_address" => $request->ip()
         ]);
+
+       $post = Post::findOrFail($request->post_id);
+       $post->user->notify(new NewCommentNotifiy($comment,$post));
+
        $comment->load('user');
         return response()->json([
             "message" => "Comment added successfully!",

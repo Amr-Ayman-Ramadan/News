@@ -9,17 +9,7 @@ use Spatie\Sluggable\SlugOptions;
 class Post extends Model
 {
     use HasSlug;
-    const PATH = "images/posts";
-    protected $fillable = ["title","slug","image","description","comment_able","user_id","category_id", "status"];
-
-
-    public function getImageAttribute($value)
-    {
-        return asset(self::PATH . DIRECTORY_SEPARATOR . $value);
-    }
-
-
-
+    protected $fillable = ["title","slug","description","comment_able","user_id","category_id", "status"];
 
     public function user()
     {

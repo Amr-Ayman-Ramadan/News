@@ -80,18 +80,51 @@
                         <a href="#" class="nav-link dropdown-toggle"
                            data-toggle="dropdown">Categories</a>
                         <div class="dropdown-menu">
-                            @foreach($categories as $category)
+                        @foreach($categories as $category)
                                 <a href="{{route("endUser.category.posts",$category->slug)}}" class="dropdown-item" title="{{$category->name}}">{{$category->name}}</a>
                             @endforeach
                         </div>
                     </div>
-                    <a href="single-page.html" class="nav-item nav-link"
-                    >Single Page</a
-                    >
-                    <a href="dashboard.html" class="nav-item nav-link">Dashboard</a>
                     <a href="{{route("endUser.contact.index")}}" class="nav-item nav-link">Contact Us</a>
+                    <a href="{{route("endUser.dashboard.profile")}}" class="nav-item nav-link">Dashboard</a>
                 </div>
                 <div class="social ml-auto">
+                    <!-- Notification Dropdown -->
+                    @auth
+                        <a href="#" class="nav-link dropdown-toggle" id="notificationDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-bell"></i>
+                            <span class="badge badge-danger">{{ auth()->user()->unreadNotifications->count() }}</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="notificationDropdown" style="width: 300px;">
+                            <h6 class="dropdown-header">Notifications</h6>
+
+                            @forelse(auth()->user()->unreadNotifications as $notification)
+                                <div class="dropdown-item d-flex justify-content-between align-items-center">
+                                    <span>
+                                        New comment:
+                                        <a href="{{ $notification->data['link'] }}?notify={{ $notification->id }}">
+                                            {{ Str::limit($notification->data['post_title'], 50) }}
+                                        </a>
+                                    </span>
+                                    <button onclick="document.getElementById('delete-form-{{ $notification->id }}').submit()"
+                                            type="button" class="btn btn-sm btn-danger">
+                                        Delete
+                                    </button>
+                                </div>
+
+                                <form id="delete-form-{{ $notification->id }}"
+                                      action="{{ route('endUser.dashboard.notifications.destroy') }}"
+                                      method="POST" style="display: none;">
+                                    @csrf @method('DELETE')
+                                    <input type="hidden" name="notification_id" value="{{ $notification->id }}">
+                                </form>
+                            @empty
+                                <div class="dropdown-item text-center">No notifications</div>
+                            @endforelse
+                        </div>
+                    @endauth
+
+                    <!-- Social Links -->
                     <a href=""><i class="fab fa-twitter"></i></a>
                     <a href=""><i class="fab fa-facebook-f"></i></a>
                     <a href=""><i class="fab fa-linkedin-in"></i></a>

@@ -11,9 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('posts', function (Blueprint $table) {
-            $table->text('image');
-        });
+//        Schema::table('posts', function (Blueprint $table) {
+//            $table->text('image');
+//        });
     }
 
     /**

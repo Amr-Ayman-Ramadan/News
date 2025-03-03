@@ -3,6 +3,8 @@
 use App\Http\Controllers\EndUser\Auth\AuthController;
 use App\Http\Controllers\EndUser\ContactController;
 use App\Http\Controllers\EndUser\CategoryController;
+use App\Http\Controllers\EndUser\Dashboard\NotificationController;
+use App\Http\Controllers\EndUser\Dashboard\ProfileController;
 use App\Http\Controllers\EndUser\HomeController;
 use App\Http\Controllers\EndUser\NewSubscriberController;
 use App\Http\Controllers\EndUser\PostController;
@@ -61,4 +63,24 @@ Route::group(['as' => 'endUser.'], function () {
     Route::group(['prefix' => 'search', 'as' => 'search.'], function () {
         Route::post("/", SearchController::class)->name('index');
     });
+    // User Dashboard
+    Route::prefix("account/")->name("dashboard.")->middleware(["auth","verified"])->group(function () {
+        // Profile
+        Route::controller(ProfileController::class)->group(function () {
+            Route::get("profile", 'index')->name('profile');
+            Route::post("post/store", 'store')->name('post.store');
+            Route::get("post/edit/{slug}", 'edit')->name('post.edit');
+            Route::delete("post/delete", 'destroy')->name('post.destroy');
+        });
+        // notifications
+        Route::prefix("notifications")->name("notifications.")->group(function () {
+            Route::controller(NotificationController::class)->group(function () {
+                Route::get("notifications", 'index')->name('index');
+                Route::get("markAsRead", 'markAsRead')->name('markAsRead');
+                Route::delete("notifications/delete", 'destroy')->name('destroy');
+            });
+        });
+    });
 });
+
+
